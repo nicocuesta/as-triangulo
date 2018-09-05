@@ -17,11 +17,16 @@ public class Main {
         side2 = readSide(br, "Ingrese el segundo lado:");
         side3 = readSide(br, "Ingrese el tercer lado:");
 
-        TriangType type = getType(side1, side2, side3);
+	    if (esTriangulo(side1, side2, side3)){
+	      	TriangType type = getType(side1, side2, side3);	
+	       	System.out.println("El triangulo es: "+type.toString());
+	    }
+	    else
+	    {
+	       	System.out.println("ERROR. No es triangulo");
+	    }
 
-        System.out.println("El triangulo es: "+type.toString());
-
-        System.out.print("ENTER para continual, 0 para finalizar:");
+        System.out.print("ENTER para continuar, 0 para finalizar:");
         try {
           read = Long.parseLong(br.readLine().trim());
           toContinue = !read.equals(0L);
@@ -54,6 +59,11 @@ public class Main {
       return side;
     }
 
+	private static boolean esTriangulo(Long side1, Long side2, Long side3){
+		return ((side1 + side2) > side3)&& ((side1 + side3) > side2)
+				&& ((side2 + side3) > side1);
+	}    
+    
     private static TriangType getType(Long side1, Long side2, Long side3) {
         if (!side1.equals(side2) && !side2.equals(side3) && !side3.equals(side1)) {
             // todos los lados son distintos
